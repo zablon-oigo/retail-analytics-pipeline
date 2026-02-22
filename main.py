@@ -14,3 +14,7 @@ spark = SparkSession.builder \
 
 spark.conf.set("spark.sql.parquet.compression.codec", "gzip") 
 
+bucket = os.getenv("S3_BUCKET")
+prefix = os.getenv("S3_STAGING_PREFIX")
+file_name = os.getenv("CSV_FILE")
+csv_path = f"s3a://{bucket}/{prefix}/{file_name}"
