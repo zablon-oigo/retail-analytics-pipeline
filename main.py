@@ -28,3 +28,12 @@ df = df.withColumn("InvoiceDate", to_timestamp(col("InvoiceDate"), "yyyy-MM-dd H
 
 df = df.withColumn("year", year(col("InvoiceDate"))) \
        .withColumn("month", month(col("InvoiceDate")))
+table_name = "spark_catalog.default.retail_iceberg" 
+
+df.writeTo(table_name) \
+    .using("iceberg") \
+    .partitionedBy("year", "month") \
+    .option("write.format.default", "parquet") \
+    .option("check-ordering", "false") \
+    .createOrReplace()
+
