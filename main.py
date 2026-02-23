@@ -37,3 +37,10 @@ df.writeTo(table_name) \
     .option("check-ordering", "false") \
     .createOrReplace()
 
+spark.sql(f"SELECT COUNT(*) FROM {table_name}").show()
+spark.sql(f"DESCRIBE EXTENDED {table_name}").show(truncate=False) 
+
+
+spark.stop()
+
+print("Retail data successfully loaded into Iceberg table")
