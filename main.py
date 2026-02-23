@@ -18,3 +18,13 @@ bucket = os.getenv("S3_BUCKET")
 prefix = os.getenv("S3_STAGING_PREFIX")
 file_name = os.getenv("CSV_FILE")
 csv_path = f"s3a://{bucket}/{prefix}/{file_name}"
+
+df = spark.read.option("header", "true").option("inferSchema", "true").csv(csv_path)
+
+
+df = df.withColumn("InvoiceDate", to_timestamp(col("InvoiceDate"), "yyyy-MM-dd HH:mm:ss")) \
+       .withColumnRenamed("Customer ID", "CustomerID")  
+
+
+df = df.withColumn("year", year(col("InvoiceDate"))) \
+       .withColumn("month", month(col("InvoiceDate")))
