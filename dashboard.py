@@ -63,3 +63,23 @@ filtered_df = df_pd[
     df_pd["Country"].isin(selected_countries) &
     df_pd["year"].isin(selected_years)
 ]
+
+if not filtered_df.empty:
+    st.subheader("Total Quantity by Country")
+
+    qty_by_country = filtered_df.groupby("Country")["Quantity"].sum().reset_index()
+    fig = px.bar(qty_by_country, x="Country", y="Quantity",
+                 title="Total Quantity Sold by Country",
+                 color="Quantity")
+    st.plotly_chart(fig, use_container_width=True)
+
+    st.subheader("Top Products by Revenue")
+    filtered_df["Revenue"] = filtered_df["Quantity"] * filtered_df["Price"]
+    top_products = filtered_df.groupby("Description")["Revenue"].sum().nlargest(10).reset_index()
+    st.dataframe(top_products.style.format({"Revenue": "${:,.2f}"}))
+
+    st.subheader("Raw Data Preview")
+    st.dataframe(filtered_df.head(1000))
+else:
+    st.warning("No data matches the selected filters.")
+
