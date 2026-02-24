@@ -46,3 +46,20 @@ with st.spinner("Reading Iceberg table..."):
     except Exception as e:
         st.error(f"Error reading table: {e}")
         st.stop()
+
+
+col1, col2 = st.columns(2)
+
+with col1:
+    countries = sorted(df_pd["Country"].dropna().unique())
+    selected_countries = st.multiselect("Select Countries", countries, default=countries[:5])
+
+with col2:
+    years = sorted(df_pd["year"].dropna().unique())
+    selected_years = st.multiselect("Select Years", years, default=years)
+
+
+filtered_df = df_pd[
+    df_pd["Country"].isin(selected_countries) &
+    df_pd["year"].isin(selected_years)
+]
