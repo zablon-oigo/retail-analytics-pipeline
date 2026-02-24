@@ -28,3 +28,21 @@ def get_spark():
 
 spark = get_spark()
 
+st.set_page_config(page_title="Retail Dashboard", layout="wide")
+
+st.title("Retail Sales Dashboard")
+st.markdown("Data loaded from Apache Iceberg table on S3")
+
+table_name = "spark_catalog.default.retail_iceberg"
+
+with st.spinner("Reading Iceberg table..."):
+    try:
+        df_spark = spark.read.table(table_name)
+
+        df_pd = df_spark.toPandas()  
+
+        st.success(f"Loaded {len(df_pd):,} rows from Iceberg table!")
+
+    except Exception as e:
+        st.error(f"Error reading table: {e}")
+        st.stop()
