@@ -83,3 +83,11 @@ if not filtered_df.empty:
 else:
     st.warning("No data matches the selected filters.")
 
+with st.expander("Iceberg Table Snapshots"):
+    snapshots = spark.sql(f"SELECT * FROM {table_name}.snapshots ORDER BY committed_at DESC LIMIT 3")
+    st.dataframe(snapshots.toPandas())
+
+if st.button("Stop Spark Session"):
+    spark.stop()
+    st.success("Spark session stopped.")
+
