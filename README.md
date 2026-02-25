@@ -7,6 +7,18 @@ All transformations are performed using Apache Spark, which can scale to handle 
 #### Architecture Diagram
 
 
+#### Prerequisites
+
+Before running the project, ensure you have the following installed:
+
+|  Tool | Versions  | Purpose   |
+|-------|-----------|-----------|
+| Java  |  11+      |  Runtime for Spark |
+| Python| 3.9+      | Running Pyspark |
+| Spark |  4.0.0+   |   Distributed Data Processing |
+| ICEBERG |  Latest    |  Table Format|
+| Streamlit |  Latest    |  Visualization |
+
 #### Dataset
 
 The dataset can be dowloaded in kaggle the stored in s3:
@@ -25,3 +37,5 @@ AWS_ACCESS_KEY_ID=your_key
 AWS_SECRET_ACCESS_KEY=your_secret
 AWS_DEFAULT_REGION=your_region
 ```
+
+#### Setup Guide
