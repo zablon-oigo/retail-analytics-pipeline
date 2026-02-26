@@ -13,7 +13,7 @@ Before running the project, ensure you have the following installed:
 
 |  Tool | Versions  | Purpose   |
 |-------|-----------|-----------|
-| Java  |  11+      |  Runtime for Spark |
+| Java  |  17+      |  Runtime for Spark |
 | Python| 3.9+      | Running Pyspark |
 | Spark |  4.0.0+   |   Distributed Data Processing |
 | ICEBERG |  Latest    |  Table Format|
@@ -39,3 +39,20 @@ AWS_DEFAULT_REGION=your_region
 ```
 
 #### Setup Guide
+1. Clone the project
+```sh
+https://github.com/zablon-oigo/retail-analytics-pipeline.git
+```
+2. Change directory
+
+```sh
+cd retail-analytics-pipeline
+```
+3. Run Spark Cluster
+```sh
+spark-submit --master spark://svr:7077   --executor-memory 512m   --executor-cores 1   --num-executors 1   main.py
+```
+4. Set Up Dashboard
+```sh
+streamlit run dashboard.py
+```
